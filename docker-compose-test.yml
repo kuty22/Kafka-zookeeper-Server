@@ -1,0 +1,47 @@
+version: '3'
+services:
+
+#### tests module ####
+  test_module:
+    build:
+      context: tests/
+    ports:
+      - 80
+    links:
+      - kafka
+    networks:
+      - platform
+
+#### Zookeeper ####
+  zookeeper:
+        image: jplock/zookeeper
+        environment:
+          KAFKA_BROKER_ID: 1
+        ports:
+          - "2181:2181"
+        networks:
+          - platform
+
+#### Kafka ####
+  kafka:
+    image: ches/kafka
+    environment:
+      KAFKA_NUM_PARTITIONS: 1
+      KAFKA_LOG_RETENTION_HOURS: 168
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:9092'
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+      KAFKA_ADVERTISED_PORT: 9092
+      ZOOKEEPER_IP: zookeeper
+      ZOOKEEPER_PORT: 2181
+    networks:
+      - platform
+    ports:
+      - "9092:9092"
+    links:
+      - zookeeper
+
+networks:
+  platform:
+    external:
+      name: platform-networks

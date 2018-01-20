@@ -12,7 +12,13 @@
 
 ## Introduction
 
+  #### Kafka:
+  Kafka® is used for building real-time data pipelines and streaming apps. It is horizontally scalable, fault-tolerant, wicked fast, and runs in production in thousands of companies.
   This is an example of kafka and zookeeper with docker.
+
+  #### Zookeeper:
+  ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services. All of these kinds of services are used in some form or another by distributed applications. Each time they are implemented there is a lot of work that goes into fixing the bugs and race conditions that are inevitable. Because of the difficulty of implementing these kinds of services, applications initially usually skimp on them ,which make them brittle in the presence of change and difficult to manage. Even when done correctly, different implementations of these services lead to management complexity when the applications are deployed.
+  
   It use an external docker network to simplify the plugging of a module.
 
   The basic configuration haven't any topic.
@@ -29,6 +35,7 @@
 - Docker
 - docker-compose
 - git
+- gradle(optional only to use kafka manualy)([install](https://gradle.org/install/))
 
 ### Two ways are available to install:
 - Makefile
@@ -45,11 +52,16 @@ make build
 ```
 3. test(optional)
 ```
-# the test will run a python3 container which will test:
-# - topic creation
-# - data transfers
-# - multiple client
+  # the test will run a python3 container which will test:
+  # - topic creation
+  # - data transfers
+  # - multiple client
+
+  make test
 ```
+  make test build and up a python3 container which will run a script and display to you
+  tests logs, then the container down and you can clean the Kafka memory with a down_build_up
+  or continue to use it(tests created and added data to ["test","testSec"] topic).
 
 _basic install_:
 1. install external modules:
@@ -71,8 +83,12 @@ _basic install_:
   docker-compose -f docker-compose-test.yml build
 
   docker-compose -f docker-compose-test.yml up -d
-```
 
+  docker-compose -f docker-compose-test.yml logs test_module
+```
+  make test build and up a python3 container which will run a script and display to you
+  tests logs, then the container down and you can clean the Kafka memory with a down_build_up
+  or continue to use it(tests created and added data to ["test","testSec"] topic).
 ## Start
 
 > Tests process is advising,

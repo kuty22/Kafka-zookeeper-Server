@@ -25,6 +25,7 @@ down:
 ### test make ###
 
 test: down_build_up_test
+	$(DC) $(TEST_FILE) logs -f test_module
 
 down_build_up_test:  down_test build_test up_test
 
@@ -43,8 +44,14 @@ up_test:
 ps:
 	$(DC) ps
 
+ps_test:
+	$(DC) $(TEST_FILE) ps
+
 logs:
 	$(DC) logs $(service)
+
+logs_test:
+	$(DC) $(TEST_FILE) logs test_module
 
 ### install ###
 install:
