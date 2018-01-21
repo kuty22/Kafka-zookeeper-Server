@@ -6,13 +6,15 @@ from kafka import KafkaProducer, KafkaConsumer, TopicPartition
 from multiprocessing import Process
 
 
-class Consumer:
+class Consumer(unittest.TestCase):
 
     def __init__(self):
         try:
             self.__consumer = KafkaConsumer(bootstrap_servers=['kafka'],
                                             client_id='platform', group_id='platform',
                                             auto_offset_reset='earliest', enable_auto_commit=False)
+            self.__attendedResult = dict({"test": ["test send message", str(dict({"flags": "send json"}))],
+                                          "testSec": ["test new topic", "retry"]})
         except:
             print("Consumer init error fail to connect.")
             sys.exit()
@@ -30,7 +32,10 @@ class Consumer:
             self.__consumer.seek(topicpart, last_offset - 2)
             for e in range(2):
                 a = next(self.__consumer)
+                attendedValue = self.__attendedResult[topic][e]
                 print("topic: {}, message: {} ".format(topic, a.value.decode()))
+                assert attendedValue == a.value.decode()
+                print("Assert value: ok")
             self.__consumer.close(autocommit=False)
 
 

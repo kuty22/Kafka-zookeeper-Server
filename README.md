@@ -18,8 +18,10 @@
 
   #### Zookeeper:
   ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services. All of these kinds of services are used in some form or another by distributed applications. Each time they are implemented there is a lot of work that goes into fixing the bugs and race conditions that are inevitable. Because of the difficulty of implementing these kinds of services, applications initially usually skimp on them ,which make them brittle in the presence of change and difficult to manage. Even when done correctly, different implementations of these services lead to management complexity when the applications are deployed.
-  
-  It use an external docker network to simplify the plugging of a module.
+
+  > It use an external docker network to simplify the plugging of a module.
+  >
+  > the process to create one is describe in [Install section](#install)
 
   The basic configuration haven't any topic.
 
@@ -36,10 +38,32 @@
 - docker-compose
 - git
 - gradle(optional only to use kafka manualy)([install](https://gradle.org/install/))
+- an external docker network
 
 ### Two ways are available to install:
 - Makefile
 - basic install
+
+If you do not have a docker network this step is not optional:
+```
+# The basic project use "platform-networks"
+docker network create platform-networks
+```
+if you want to use your own docker network, you must change network field in the docker-compose.yml/docker-compose-test.yml:
+docker-compose.yml:
+```
+# line 47 change the network name.
+platform:
+  external:
+    name: platform-networks
+```
+docker-compose-test.yml:
+```
+# line 37 change the network name.
+platform:
+  external:
+    name: platform-networks
+```
 
 _Makefile_:
 1. install external module:
@@ -155,6 +179,13 @@ _Makefile commands available_:
 |                       |                                    |
 | `make logs service=?` | display logs for a specific module |
 
+
+Tricks:
+
+|              **commands**              | **description**         |
+|:--------------------------------------:|:----------------------- |
+| `docker network create "Network-Name"` | Create a docker network |
+|          `docker network ls`           | List docker network     |
 
 ## Reference
 
