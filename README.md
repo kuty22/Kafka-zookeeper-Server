@@ -34,11 +34,11 @@
 ## Install
 
 ### requirement:
-- Docker
-- docker-compose
-- git
+- [Docker](https://www.docker.com)
+- [Docker-compose](https://docs.docker.com/compose/)
+- [git](https://git-scm.com/documentation)
+- [External Docker network](https://docs.docker.com/engine/userguide/networking/work-with-networks/)
 - gradle(optional only to use kafka manualy)([install](https://gradle.org/install/))
-- an external docker network
 
 ### Two ways are available to install:
 - Makefile
