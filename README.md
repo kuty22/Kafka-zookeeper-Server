@@ -167,7 +167,7 @@ kafka/bin/kafka-topics.sh --describe --topic my-topic --zookeeper  0.0.0.0:2181
 kafka/bin/kafka-console-consumer.sh --topic my-topic --from-beginning --bootstrap-server 0.0.0.0:9092
 
 # list topic
-bin/kafka-topics.sh --list --zookeeper 0.0.0.0:2181
+kafka/bin/kafka-topics.sh --list --zookeeper 0.0.0.0:2181
 
 # produce data
 kafka/bin/kafka-console-producer.sh --topic my-topic --bootstrap-server 0.0.0.0:9092
