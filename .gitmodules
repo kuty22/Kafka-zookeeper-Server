@@ -1,0 +1,4 @@
+[submodule "kafka"]
+	path = kafka
+	url = git@github.com:apache/kafka.git
+	branch = trunc
