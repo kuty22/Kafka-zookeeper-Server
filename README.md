@@ -140,6 +140,38 @@ for logs:
   #   make logs service=kafka
   make logs service=<module-name>
 ```
+## init kafka
+```shell
+git submodule update --init
+# if there are nested submodules:
+git submodule update --init --recursive
+
+# build kafka
+cd kafka
+./gradlew jar -PscalaVersion=2.13.3
+```
+## kafka monitoring
+
+example:
+```shell
+# list topic
+kafka/bin/kafka-topics.sh --list --zookeeper 0.0.0.0:2181
+
+# cmd create topic
+kafka/bin/kafka-topics.sh --create --zookeeper 0.0.0.0:2181 --replication-factor 1 --partitions 1 --topic my-topic
+
+# describ topic
+kafka/bin/kafka-topics.sh --describe --topic my-topic --zookeeper  0.0.0.0:2181
+
+# get data
+kafka/bin/kafka-console-consumer.sh --topic my-topic --from-beginning --bootstrap-server 0.0.0.0:9092
+
+# list topic
+bin/kafka-topics.sh --list --zookeeper 0.0.0.0:2181
+
+# produce data
+kafka/bin/kafka-console-producer.sh --topic my-topic --bootstrap-server 0.0.0.0:9092
+```
 
 ## Documentation
 
